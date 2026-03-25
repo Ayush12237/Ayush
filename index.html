@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Ayush Yadav | OSINT Portfolio</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#0b0f1a;
+color:white;
+}
+
+/* HEADER */
+.hero{
+text-align:center;
+padding:90px 20px;
+background:#050816;
+border-bottom:1px solid #4da6ff30;
+}
+
+.glow{
+font-size:44px;
+color:#4da6ff;
+text-shadow:0 0 10px #4da6ff;
+}
+
+.tagline{color:#aaa;}
+.role{color:#4da6ff;}
+
+/* CONTAINER */
+.container{
+padding:30px;
+max-width:1300px;
+margin:auto;
+}
+
+/* SECTION */
+.section{margin-bottom:50px;}
+
+.section h2{
+border-left:4px solid #4da6ff;
+padding-left:10px;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+gap:15px;
+margin-top:20px;
+}
+
+/* CARD */
+.card{
+background:#111a2e;
+padding:15px;
+border-radius:8px;
+transition:0.3s;
+}
+
+.card:hover{
+box-shadow:0 0 10px #4da6ff;
+}
+
+.card a{
+color:white;
+text-decoration:none;
+}
+
+/* FLOAT BUTTON */
+.floating-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+font-size:12px;
+background:#4da6ff;
+color:black;
+padding:8px 12px;
+border-radius:20px;
+cursor:pointer;
+}
+
+/* LOGIN */
+#loginPopup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.85);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.login-box{
+background:#111a2e;
+padding:30px;
+border-radius:10px;
+width:300px;
+text-align:center;
+}
+
+.login-box input{
+width:100%;
+padding:10px;
+margin-top:15px;
+border:none;
+border-radius:5px;
+}
+
+.login-box button{
+margin-top:15px;
+padding:10px;
+background:#4da6ff;
+border:none;
+border-radius:5px;
+font-weight:bold;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:20px;
+color:#888;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header class="hero">
+<h1 class="glow">Ayush Yadav</h1>
+<p class="tagline">MBA (Forensic Accounting & Fraud Investigation)</p>
+<p class="role">OSINT Researcher • Fraud Investigator</p>
+</header>
+
+<div class="container">
+
+<!-- BASIC DETAILS -->
+<div class="section">
+<h2>Basic Details</h2>
+<div class="grid">
+<div class="card"><b>Name:</b> Ayush Yadav</div>
+<div class="card"><b>Profession:</b> OSINT Researcher & Fraud Investigator</div>
+<div class="card"><b>Location:</b> India</div>
+<div class="card"><b>Email:</b> your-email@gmail.com</div>
+<div class="card"><b>Phone:</b> +91 XXXXX XXXXX</div>
+</div>
+</div>
+
+<!-- SUMMARY -->
+<div class="section">
+<h2>Professional Summary</h2>
+<p>
+I am currently pursuing MBA in Forensic Accounting & Fraud Investigation from 
+<a href="https://www.nfsu.com" target="_blank" style="color:#4da6ff;">NFSU</a>.  
+I specialize in OSINT, fraud detection, and financial investigation with hands-on experience from CID – Economic Offences Wing.
+My goal is to become a professional Fraud Investigator and OSINT Analyst.
+</p>
+</div>
+
+<!-- SKILLS -->
+<div class="section">
+<h2>Core Skills</h2>
+<div class="grid">
+<div class="card">OSINT Investigation</div>
+<div class="card">Fraud Detection</div>
+<div class="card">Financial Analysis</div>
+<div class="card">Cybercrime Investigation</div>
+<div class="card">Social Media Intelligence</div>
+<div class="card">Report Writing</div>
+</div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section">
+<h2>Projects</h2>
+<div class="grid">
+<div class="card">
+<h3>Identity Theft in Business</h3>
+<p>Research on identity theft trends in India.</p>
+</div>
+
+<div class="card">
+<h3>Cyber Investigation Case Study</h3>
+<p>Analyzed fraud patterns using OSINT techniques.</p>
+</div>
+</div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="section">
+<h2>Experience</h2>
+<div class="card">
+<h3>CID – Economic Offences Wing</h3>
+<p>Worked on fraud investigations, intelligence gathering, and financial verification.</p>
+</div>
+</div>
+
+</div>
+
+<!-- LOGIN -->
+<div id="loginPopup">
+<div class="login-box">
+<h2 style="color:#4da6ff;">Secure Access</h2>
+<input type="password" id="password">
+<button onclick="unlock()">Access</button>
+<p id="error" style="color:red;"></p>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="container" id="dashboard" style="display:none;">
+
+<div class="section">
+<h2>OSINT Investigation Dashboard</h2>
+
+<h3>Search Engines</h3>
+<div class="grid">
+<a href="https://qmamu.com" target="_blank" class="card">Qmamu</a>
+<a href="https://www.13tabs.com/" target="_blank" class="card">13Tabs</a>
+</div>
+
+<h3>Maps</h3>
+<div class="grid">
+<a href="https://openstreetmap.in/" target="_blank" class="card">OpenStreetMap</a>
+<a href="https://surveyofindia.gov.in/" target="_blank" class="card">Survey of India</a>
+<a href="https://bharatmaps.gov.in/" target="_blank" class="card">Bharat Maps</a>
+<a href="https://villagemap.in/" target="_blank" class="card">Village Map</a>
+<a href="https://www.mapsofindia.com/" target="_blank" class="card">Maps of India</a>
+</div>
+
+<h3>Transport</h3>
+<div class="grid">
+<a href="https://www.dgca.gov.in/" target="_blank" class="card">DGCA</a>
+<a href="https://www.civilaviation.gov.in/" target="_blank" class="card">Civil Aviation</a>
+<a href="https://indiarailinfo.com/" target="_blank" class="card">India Rail Info</a>
+<a href="https://www.railyatri.in/" target="_blank" class="card">RailYatri</a>
+<a href="https://indianrailways.info/" target="_blank" class="card">Indian Railways</a>
+</div>
+
+<h3>Criminal Records</h3>
+<div class="grid">
+<a href="https://eprisons.nic.in/" target="_blank" class="card">Prison Portal</a>
+<a href="https://ncrb.gov.in/" target="_blank" class="card">NCRB</a>
+<a href="https://www.cyberyodha.org/" target="_blank" class="card">FIR Download</a>
+</div>
+
+<h3>People Search</h3>
+<div class="grid">
+<a href="https://services.gst.gov.in/" target="_blank" class="card">GST Search</a>
+<a href="https://myaadhaar.uidai.gov.in/" target="_blank" class="card">Aadhaar Verify</a>
+<a href="https://pmkisan.gov.in/" target="_blank" class="card">PM Kisan</a>
+</div>
+
+<h3>Phone Intelligence</h3>
+<div class="grid">
+<a href="https://www.findandtrace.com/" target="_blank" class="card">Find & Trace</a>
+<a href="https://www.indiacom.com/" target="_blank" class="card">Indiacom</a>
+<a href="https://ceir.sancharsaathi.gov.in/" target="_blank" class="card">Block Mobile</a>
+<a href="https://www.imei.info/" target="_blank" class="card">IMEI Check</a>
+</div>
+
+<h3>Courts</h3>
+<div class="grid">
+<a href="https://ecourts.gov.in/" target="_blank" class="card">eCourts</a>
+<a href="https://indiankanoon.org/" target="_blank" class="card">Indian Kanoon</a>
+<a href="https://judgments.ecourts.gov.in/" target="_blank" class="card">Court Judgments</a>
+</div>
+
+<h3>News</h3>
+<div class="grid">
+<a href="https://www.thehindu.com/" target="_blank" class="card">The Hindu</a>
+<a href="https://www.indiatoday.in/" target="_blank" class="card">India Today</a>
+<a href="https://indianexpress.com/" target="_blank" class="card">Indian Express</a>
+<a href="https://www.ndtv.com/" target="_blank" class="card">NDTV</a>
+<a href="https://www.news18.com/" target="_blank" class="card">News18</a>
+<a href="https://www.firstpost.com/" target="_blank" class="card">Firstpost</a>
+</div>
+
+</div>
+</div>
+
+<!-- BUTTON -->
+<div class="floating-btn" onclick="openLogin()">Dashboard</div>
+
+<footer>© 2026 Ayush Yadav | OSINT Portfolio</footer>
+
+<script>
+function openLogin(){
+document.getElementById("loginPopup").style.display="flex";
+}
+
+function unlock(){
+var pass=document.getElementById("password").value;
+
+if(pass==="osint123"){
+document.getElementById("loginPopup").style.display="none";
+document.getElementById("dashboard").style.display="block";
+window.location.href="#dashboard";
+}else{
+document.getElementById("error").innerText="Wrong Password";
+}
+}
+</script>
+
+</body>
+</html>

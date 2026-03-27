@@ -2,314 +2,1704 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ayush Yadav | OSINT Portfolio</title>
-
 <style>
+:root{
+--bg:#f2efe8;
+--panel:#fbfaf6;
+--ink:#111111;
+--muted:#4d4d4d;
+--line:#111111;
+--shade:#d9d5cc;
+--accent:#cfc8ba;
+--shadow:8px 8px 0 #111111;
+}
+
+*{box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
 
 body{
 margin:0;
-font-family:Arial;
-background:#0b0f1a;
-color:white;
+background:
+radial-gradient(circle at 1px 1px, rgba(17,17,17,0.08) 1px, transparent 0);
+background-size:8px 8px;
+background-color:var(--bg);
+color:var(--ink);
+font-family:"Trebuchet MS","Segoe UI",sans-serif;
 }
 
-/* HEADER */
-.hero{
-text-align:center;
-padding:90px 20px;
-background:#050816;
-border-bottom:1px solid #4da6ff30;
+body.site-locked{
+overflow:hidden;
+height:100vh;
 }
 
-.glow{
-font-size:44px;
-color:#4da6ff;
-text-shadow:0 0 10px #4da6ff;
-}
-
-.tagline{color:#aaa;}
-.role{color:#4da6ff;}
-
-/* CONTAINER */
-.container{
-padding:30px;
-max-width:1300px;
-margin:auto;
-}
-
-/* SECTION */
-.section{margin-bottom:50px;}
-
-.section h2{
-border-left:4px solid #4da6ff;
-padding-left:10px;
-}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
-gap:15px;
-margin-top:20px;
-}
-
-/* CARD */
-.card{
-background:#111a2e;
-padding:15px;
-border-radius:8px;
-transition:0.3s;
-}
-
-.card:hover{
-box-shadow:0 0 10px #4da6ff;
-}
-
-.card a{
-color:white;
+a{
+color:inherit;
 text-decoration:none;
 }
 
-/* FLOAT BUTTON */
-.floating-btn{
+img{
+max-width:100%;
+display:block;
+}
+
+.shell{
+max-width:1220px;
+margin:10px auto;
+background:var(--panel);
+border:3px solid var(--line);
+}
+
+.intro-overlay,
+.decline-overlay{
 position:fixed;
-bottom:20px;
-right:20px;
+inset:0;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:24px;
+background:
+radial-gradient(circle at center, rgba(111,146,96,0.22), transparent 45%),
+rgba(17,17,17,0.58);
+z-index:12000;
+}
+
+.decline-overlay{
+display:none;
+background:
+radial-gradient(circle at center, rgba(124,42,42,0.2), transparent 45%),
+rgba(17,17,17,0.72);
+}
+
+.decline-overlay.visible{
+display:flex;
+}
+
+.intro-card,
+.decline-card{
+width:min(640px, 100%);
+border:3px solid var(--line);
+background:#d3d3d3;
+box-shadow:14px 14px 0 rgba(17,17,17,0.25);
+}
+
+.decline-card{
+background:#ece7dc;
+}
+
+.topbar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:18px;
+padding:12px 18px;
+border-bottom:3px solid var(--line);
+background:#e3dfd6;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:900;
+letter-spacing:0.03em;
+}
+
+.brand-badge{
+width:34px;
+height:34px;
+display:grid;
+place-items:center;
+border:3px solid var(--line);
+background:#fff;
+font-size:18px;
+font-weight:900;
+}
+
+.nav{
+display:flex;
+flex-wrap:wrap;
+gap:22px;
+font-weight:700;
+}
+
+.nav a:hover{
+text-decoration:underline;
+}
+
+.hero{
+display:grid;
+grid-template-columns:1.05fr 0.95fr;
+gap:26px;
+padding:42px;
+border-bottom:3px solid var(--line);
+}
+
+.eyebrow{
+display:inline-block;
+padding:6px 10px;
+border:2px solid var(--line);
+background:#ebe6db;
 font-size:12px;
-background:#4da6ff;
-color:black;
-padding:8px 12px;
-border-radius:20px;
+font-weight:800;
+letter-spacing:0.08em;
+text-transform:uppercase;
+}
+
+.hero h1{
+margin:18px 0 10px;
+font-size:78px;
+line-height:0.95;
+letter-spacing:-0.05em;
+font-weight:900;
+}
+
+.hero p{
+max-width:560px;
+font-size:20px;
+line-height:1.5;
+margin:0 0 18px;
+}
+
+.muted{
+color:var(--muted);
+}
+
+.hero-actions{
+display:flex;
+flex-wrap:wrap;
+gap:14px;
+margin-top:22px;
+}
+
+.btn{
+display:inline-block;
+padding:14px 18px;
+border:3px solid var(--line);
+background:#fff;
+font-weight:900;
+box-shadow:5px 5px 0 #111111;
 cursor:pointer;
 }
 
-/* LOGIN */
+.btn.alt{
+background:#e9e4d9;
+}
+
+.illustration{
+min-height:360px;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.warning-window{
+position:absolute;
+top:26px;
+left:38px;
+width:280px;
+border:3px solid var(--line);
+background:#cfcfcf;
+box-shadow:10px 10px 0 rgba(17,17,17,0.22);
+z-index:4;
+transform:rotate(-2deg);
+}
+
+.warning-titlebar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+padding:8px 10px;
+background:#1d3e9b;
+color:#fff;
+font-size:13px;
+font-weight:700;
+}
+
+.warning-controls{
+display:flex;
+gap:4px;
+}
+
+.warning-controls i{
+display:grid;
+place-items:center;
+width:18px;
+height:18px;
+border:2px solid #111;
+background:#dcdcdc;
+color:#111;
+font-style:normal;
+font-size:12px;
+line-height:1;
+}
+
+.warning-body{
+padding:18px 16px 14px;
+border-top:2px solid #fff;
+font-size:16px;
+line-height:1.45;
+}
+
+.warning-actions{
+display:flex;
+justify-content:center;
+gap:14px;
+padding:0 16px 16px;
+}
+
+.warning-btn{
+min-width:94px;
+padding:10px 12px;
+border:2px solid #111;
+background:#dcdcdc;
+font:inherit;
+font-weight:700;
+box-shadow:2px 2px 0 #fff inset, -2px -2px 0 #8f8f8f inset;
+}
+
+.decline-body{
+padding:22px 18px 18px;
+font-size:17px;
+line-height:1.55;
+}
+
+.decline-panel{
+margin-top:16px;
+padding:16px;
+border:3px solid var(--line);
+background:#fff;
+font-weight:700;
+}
+
+.monitor{
+width:310px;
+height:225px;
+border:5px solid var(--line);
+border-radius:26px;
+background:#fff;
+box-shadow:18px 16px 0 #111111;
+position:relative;
+}
+
+.monitor::before{
+content:"";
+position:absolute;
+inset:20px;
+border:4px solid var(--line);
+border-radius:18px;
+background:
+radial-gradient(circle at 50% 42%, #111 0 16px, transparent 17px),
+radial-gradient(circle at 50% 50%, #fff 0 42px, #111 43px 49px, transparent 50px),
+linear-gradient(#111,#111);
+background-size:auto,auto,80px 10px;
+background-repeat:no-repeat;
+background-position:center 48%, center 58%, center 78%;
+}
+
+.monitor::after{
+content:"OSINT";
+position:absolute;
+bottom:-48px;
+left:50%;
+transform:translateX(-50%);
+padding:10px 28px;
+border:4px solid var(--line);
+background:#fff;
+font-weight:900;
+letter-spacing:0.18em;
+}
+
+.lens{
+position:absolute;
+left:32px;
+top:58px;
+width:96px;
+height:96px;
+border:5px solid var(--line);
+border-radius:50%;
+background:#fff;
+}
+
+.lens::before{
+content:"";
+position:absolute;
+width:56px;
+height:10px;
+background:#111;
+right:-40px;
+bottom:-8px;
+transform:rotate(38deg);
+}
+
+.spark{
+position:absolute;
+border:4px solid var(--line);
+background:#fff;
+}
+
+.spark.one{
+width:20px;
+height:20px;
+border-radius:50%;
+top:24px;
+right:90px;
+}
+
+.spark.two{
+width:16px;
+height:16px;
+border-radius:50%;
+top:58px;
+right:42px;
+}
+
+.spark.three{
+width:12px;
+height:12px;
+border-radius:50%;
+top:10px;
+right:22px;
+}
+
+.quick-links{
+padding:26px 42px 34px;
+border-bottom:3px solid var(--line);
+}
+
+.quick-links h2,
+.section-title{
+margin:0 0 18px;
+font-size:30px;
+line-height:1;
+font-weight:900;
+letter-spacing:-0.04em;
+}
+
+.link-row{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+border:3px solid var(--line);
+}
+
+.link-row a{
+padding:18px;
+background:#fff;
+font-weight:900;
+border-right:3px solid var(--line);
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.link-row a:last-child{
+border-right:none;
+}
+
+.content-section{
+padding:42px;
+border-bottom:3px solid var(--line);
+}
+
+.project-grid,
+.writing-grid,
+.info-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:26px;
+}
+
+.window{
+border:3px solid var(--line);
+background:#fff;
+box-shadow:var(--shadow);
+}
+
+.window-bar{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:12px;
+padding:10px 14px;
+border-bottom:3px solid var(--line);
+background:#ddd7cb;
+font-size:13px;
+font-weight:800;
+}
+
+.dots{
+display:flex;
+gap:6px;
+}
+
+.dot{
+width:12px;
+height:12px;
+border:2px solid var(--line);
+border-radius:50%;
+background:#fff;
+}
+
+.window-image{
+height:180px;
+border-bottom:3px solid var(--line);
+background:
+linear-gradient(180deg, rgba(17,17,17,0.05), rgba(17,17,17,0.15)),
+linear-gradient(135deg, #d5d0c5 0%, #f3f0e8 100%);
+position:relative;
+overflow:hidden;
+}
+
+.window-image.grid::before{
+content:"";
+position:absolute;
+inset:0;
+background:
+linear-gradient(rgba(17,17,17,0.12) 2px, transparent 2px),
+linear-gradient(90deg, rgba(17,17,17,0.12) 2px, transparent 2px);
+background-size:42px 42px;
+}
+
+.window-image.map::before{
+content:"";
+position:absolute;
+inset:18px;
+border:3px solid var(--line);
+background:
+linear-gradient(90deg, transparent 48%, rgba(17,17,17,0.2) 48%, rgba(17,17,17,0.2) 52%, transparent 52%),
+linear-gradient(transparent 48%, rgba(17,17,17,0.2) 48%, rgba(17,17,17,0.2) 52%, transparent 52%);
+transform:rotate(-8deg);
+}
+
+.window-image.lines::before{
+content:"";
+position:absolute;
+left:-10%;
+right:-10%;
+top:45%;
+height:3px;
+background:#111;
+box-shadow:0 -38px 0 #111, 0 38px 0 #111;
+transform:rotate(-8deg);
+}
+
+.window-body{
+padding:20px;
+}
+
+.window-body h3{
+margin:0 0 10px;
+font-size:22px;
+line-height:1.1;
+font-weight:900;
+letter-spacing:-0.03em;
+}
+
+.window-body p{
+margin:0 0 16px;
+font-size:16px;
+line-height:1.55;
+color:var(--muted);
+}
+
+.mini-btn{
+display:inline-block;
+padding:11px 14px;
+border:3px solid var(--line);
+background:#f0ece4;
+font-weight:800;
+}
+
+.stack-grid{
+display:grid;
+grid-template-columns:1.1fr 0.9fr;
+gap:26px;
+}
+
+.panel{
+padding:24px;
+border:3px solid var(--line);
+background:#fff;
+box-shadow:var(--shadow);
+}
+
+.panel p{
+margin:0 0 14px;
+font-size:17px;
+color:var(--muted);
+}
+
+.tag-list{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin-top:18px;
+}
+
+.tag{
+padding:10px 12px;
+border:2px solid var(--line);
+background:#efebe2;
+font-weight:800;
+font-size:14px;
+}
+
+.dashboard-shell{
+display:none;
+margin-top:24px;
+}
+
+.dashboard-shell.visible{
+display:block;
+}
+
+.resource-groups{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:18px;
+margin-top:20px;
+}
+
+.resource-box{
+padding:18px;
+border:3px solid var(--line);
+background:#fff;
+}
+
+.resource-box h3{
+margin:0 0 12px;
+font-size:18px;
+font-weight:900;
+}
+
+.resource-box a{
+display:block;
+padding:10px 0;
+border-top:2px solid #d7d2c7;
+font-weight:700;
+}
+
+.resource-box a:first-of-type{
+border-top:none;
+padding-top:0;
+}
+
+.footer{
+padding:20px 42px 34px;
+font-weight:700;
+}
+
+.generator-layout{
+display:grid;
+grid-template-columns:0.92fr 1.08fr;
+gap:26px;
+align-items:start;
+}
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.form-grid .full{
+grid-column:1 / -1;
+}
+
+.generator-form label{
+display:block;
+margin-bottom:6px;
+font-size:12px;
+font-weight:900;
+letter-spacing:0.08em;
+text-transform:uppercase;
+}
+
+.generator-form input,
+.generator-form textarea,
+.generator-form select{
+width:100%;
+padding:13px 14px;
+border:3px solid var(--line);
+background:#fff;
+font:inherit;
+}
+
+.generator-form textarea{
+min-height:110px;
+resize:vertical;
+}
+
+.generator-note{
+margin-top:14px;
+font-size:14px;
+color:var(--muted);
+}
+
+.dossier{
+border:3px solid var(--line);
+background:
+linear-gradient(180deg, rgba(111,146,96,0.12), rgba(111,146,96,0.04)),
+var(--panel);
+box-shadow:var(--shadow);
+}
+
+.game-grid{
+display:grid;
+grid-template-columns:repeat(2,minmax(0,1fr));
+gap:26px;
+}
+
+.game-card{
+padding:24px;
+border:3px solid var(--line);
+background:#fff;
+box-shadow:var(--shadow);
+}
+
+.game-card h3{
+margin:0 0 10px;
+font-size:24px;
+font-weight:900;
+letter-spacing:-0.03em;
+}
+
+.game-card p{
+margin:0 0 14px;
+color:var(--muted);
+}
+
+.option-list{
+display:grid;
+gap:10px;
+margin-top:16px;
+}
+
+.option-btn{
+width:100%;
+text-align:left;
+padding:12px 14px;
+border:3px solid var(--line);
+background:#f3efe7;
+font:inherit;
+font-weight:800;
+cursor:pointer;
+}
+
+.game-feedback{
+min-height:52px;
+margin-top:14px;
+padding:12px 14px;
+border:3px solid var(--line);
+background:#f7f4ec;
+font-weight:700;
+}
+
+.score-strip{
+display:flex;
+justify-content:space-between;
+gap:12px;
+margin-top:16px;
+font-weight:900;
+align-items:center;
+}
+
+.clue-box{
+padding:16px;
+border:3px solid var(--line);
+background:#f3efe7;
+margin:16px 0;
+}
+
+.forensic-grid{
+display:grid;
+grid-template-columns:1.1fr 0.9fr;
+gap:26px;
+}
+
+.checklist{
+display:grid;
+gap:10px;
+margin-top:16px;
+}
+
+.check-item{
+padding:12px 14px;
+border:3px solid var(--line);
+background:#fff;
+font-weight:700;
+}
+
+.metric-box{
+padding:18px;
+border:3px solid var(--line);
+background:#efe9db;
+margin-top:16px;
+}
+
+.metric-box strong{
+display:block;
+font-size:28px;
+margin-bottom:6px;
+}
+
+.dossier-top{
+display:flex;
+justify-content:space-between;
+gap:18px;
+padding:18px 20px 14px;
+border-bottom:3px solid var(--line);
+background:#e7e3da;
+}
+
+.dossier-mark{
+font-size:74px;
+line-height:0.9;
+font-weight:900;
+letter-spacing:-0.08em;
+color:#64895b;
+}
+
+.dossier-kicker{
+font-size:12px;
+font-weight:900;
+letter-spacing:0.12em;
+text-transform:uppercase;
+}
+
+.dossier-issue{
+align-self:flex-end;
+font-size:13px;
+font-weight:800;
+}
+
+.dossier-main{
+display:grid;
+grid-template-columns:190px 1fr;
+gap:18px;
+padding:20px;
+border-bottom:3px solid var(--line);
+}
+
+.dossier-photo{
+height:220px;
+border:3px solid var(--line);
+background:
+linear-gradient(180deg, rgba(17,17,17,0.08), rgba(17,17,17,0.18)),
+linear-gradient(135deg, #d8d4cb 0%, #f4f1ea 100%);
+position:relative;
+overflow:hidden;
+}
+
+.dossier-photo::before{
+content:"";
+position:absolute;
+width:88px;
+height:88px;
+border:4px solid var(--line);
+border-radius:50%;
+left:50%;
+top:36px;
+transform:translateX(-50%);
+background:#f6f2ea;
+}
+
+.dossier-photo::after{
+content:"";
+position:absolute;
+width:122px;
+height:110px;
+border:4px solid var(--line);
+border-bottom:none;
+border-radius:70px 70px 0 0;
+left:50%;
+bottom:26px;
+transform:translateX(-50%);
+background:#f6f2ea;
+}
+
+.dossier-headline{
+margin:0 0 10px;
+font-size:44px;
+line-height:0.95;
+font-weight:900;
+letter-spacing:-0.05em;
+}
+
+.dossier-meta{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px 18px;
+margin:14px 0;
+}
+
+.dossier-meta div{
+font-size:14px;
+font-weight:700;
+}
+
+.dossier-meta span{
+display:block;
+font-size:11px;
+letter-spacing:0.08em;
+text-transform:uppercase;
+}
+
+.dossier-summary{
+font-size:15px;
+line-height:1.6;
+color:var(--muted);
+}
+
+.dossier-bottom{
+padding:18px 20px 20px;
+display:grid;
+grid-template-columns:1fr 220px;
+gap:18px;
+}
+
+.status-box,
+.signal-box{
+border:3px solid var(--line);
+background:#fff;
+padding:14px;
+}
+
+.status-box h3,
+.signal-box h3{
+margin:0 0 8px;
+font-size:16px;
+font-weight:900;
+text-transform:uppercase;
+}
+
+.status-line{
+font-size:30px;
+line-height:1;
+font-weight:900;
+letter-spacing:-0.04em;
+color:#7c2a2a;
+}
+
+.signal-bars{
+display:flex;
+gap:8px;
+margin-top:12px;
+}
+
+.signal-bars span{
+flex:1;
+height:24px;
+border:2px solid var(--line);
+background:#d7d2c8;
+}
+
+.signal-bars span.active{
+background:#89b57e;
+}
+
 #loginPopup{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
+inset:0;
 display:none;
-justify-content:center;
 align-items:center;
-z-index:9999;
+justify-content:center;
+padding:18px;
+background:rgba(17,17,17,0.58);
 }
 
 .login-box{
-background:#111a2e;
-padding:30px;
-border-radius:10px;
-width:300px;
-text-align:center;
+width:min(420px,100%);
+padding:26px;
+border:3px solid var(--line);
+background:#fbfaf6;
+box-shadow:12px 12px 0 #111111;
+}
+
+.login-box h3{
+margin:0 0 10px;
+font-size:28px;
+font-weight:900;
+}
+
+.login-box p{
+margin:0 0 14px;
+color:var(--muted);
 }
 
 .login-box input{
 width:100%;
-padding:10px;
-margin-top:15px;
-border:none;
-border-radius:5px;
+padding:14px;
+border:3px solid var(--line);
+background:#fff;
+font-size:16px;
+margin-bottom:12px;
 }
 
-.login-box button{
-margin-top:15px;
-padding:10px;
-background:#4da6ff;
-border:none;
-border-radius:5px;
-font-weight:bold;
-cursor:pointer;
+#error{
+min-height:24px;
+margin-top:12px;
+font-weight:700;
+color:#8d1b1b;
 }
 
-footer{
-text-align:center;
-padding:20px;
-color:#888;
+@media (max-width: 920px){
+.hero,
+.stack-grid,
+.project-grid,
+.writing-grid,
+.info-grid,
+.resource-groups,
+.generator-layout,
+.game-grid,
+.forensic-grid{
+grid-template-columns:1fr;
 }
 
+.link-row{
+grid-template-columns:1fr 1fr;
+}
+
+.hero h1{
+font-size:58px;
+}
+
+.warning-window{
+position:relative;
+top:auto;
+left:auto;
+margin-bottom:22px;
+transform:none;
+}
+
+}
+
+@media (max-width: 620px){
+.topbar,
+.hero,
+.quick-links,
+.content-section,
+.footer{
+padding-left:18px;
+padding-right:18px;
+}
+
+.nav{
+gap:12px;
+font-size:14px;
+}
+
+.hero h1{
+font-size:46px;
+}
+
+.hero p{
+font-size:17px;
+}
+
+.link-row{
+grid-template-columns:1fr;
+}
+
+.form-grid,
+.dossier-main,
+.dossier-bottom{
+grid-template-columns:1fr;
+}
+
+.link-row a{
+border-right:none;
+border-bottom:3px solid var(--line);
+}
+
+.link-row a:last-child{
+border-bottom:none;
+}
+}
 </style>
 </head>
+<body class="site-locked">
+<div class="intro-overlay" id="introOverlay">
+<div class="intro-card">
+<div class="warning-titlebar">
+<span>Vulnerability detected</span>
+<span class="warning-controls"><i>_</i><i>□</i><i>X</i></span>
+</div>
+<div class="warning-body">
+<strong>Warning!</strong> You are about to connect deeply with OSINT, fraud patterns, forensic accounting, and investigative thinking.
+</div>
+<div class="warning-actions">
+<button class="warning-btn" type="button" onclick="declineEntry()">No</button>
+<button class="warning-btn" type="button" onclick="enterSite()">OK</button>
+</div>
+</div>
+</div>
 
-<body>
+<div class="decline-overlay" id="declineOverlay">
+<div class="decline-card">
+<div class="warning-titlebar">
+<span>Connection paused</span>
+<span class="warning-controls"><i>_</i><i>□</i><i>X</i></span>
+</div>
+<div class="decline-body">
+<strong>Access not continued.</strong> This is the fallback screen for the `No` path.
+<div class="decline-panel">
+Your next upload can replace this entire screen with a custom poster, warning art, or alternate intro state.
+</div>
+</div>
+<div class="warning-actions">
+<button class="warning-btn" type="button" onclick="showIntroAgain()">Back</button>
+<button class="warning-btn" type="button" onclick="enterSite()">Enter Anyway</button>
+</div>
+</div>
+</div>
 
-<!-- HEADER -->
-<header class="hero">
-<h1 class="glow">Ayush Yadav</h1>
-<p class="tagline">MBA (Forensic Accounting & Fraud Investigation)</p>
-<p class="role">OSINT Researcher • Fraud Investigator</p>
+<div class="shell">
+<header class="topbar">
+<div class="brand">
+<div class="brand-badge">A</div>
+<span>Ayush Yadav</span>
+</div>
+<nav class="nav">
+<a href="#projects">Projects</a>
+<a href="#writing">Research</a>
+<a href="#about">About</a>
+<a href="#dashboard-section">Dashboard</a>
+<a href="#contact">Contact</a>
+</nav>
 </header>
 
-<div class="container">
+<section class="hero">
+<div>
+<span class="eyebrow">OSINT • Fraud Investigation</span>
+<h1>Hello.<br>I'm Ayush.</h1>
+<p>I’m building an investigation-focused portfolio around open-source intelligence, financial fraud review, and India-focused verification research.</p>
+<p class="muted">MBA in Forensic Accounting and Fraud Investigation at <a href="https://www.nfsu.ac.in" target="_blank" rel="noopener noreferrer"><strong>NFSU</strong></a>. Interested in roles involving fraud analysis, due diligence, cyber investigation support, and structured intelligence reporting.</p>
+<div class="hero-actions">
+<a class="btn" href="#projects">View Projects</a>
+<a class="btn alt" href="#contact">Find Me</a>
+</div>
+</div>
+<div class="illustration">
+<div class="lens"></div>
+<div class="monitor"></div>
+<div class="spark one"></div>
+<div class="spark two"></div>
+<div class="spark three"></div>
+</div>
+</section>
 
-<!-- BASIC DETAILS -->
-<div class="section">
-<h2>Basic Details</h2>
-<div class="grid">
-<div class="card"><b>Name:</b> Ayush Yadav</div>
-<div class="card"><b>Profession:</b> OSINT Researcher & Fraud Investigator</div>
-<div class="card"><b>Location:</b> India</div>
-<div class="card"><b>Email:</b> your-email@gmail.com</div>
-<div class="card"><b>Phone:</b> +91 XXXXX XXXXX</div>
+<section class="quick-links">
+<h2>Quick links</h2>
+<div class="link-row">
+<a href="#writing"><span>Research</span><span>↗</span></a>
+<a href="#projects"><span>Projects</span><span>↗</span></a>
+<a href="#about"><span>About</span><span>↗</span></a>
+<a href="#contact"><span>Contact</span><span>↗</span></a>
 </div>
-</div>
+</section>
 
-<!-- SUMMARY -->
-<div class="section">
-<h2>Professional Summary</h2>
-<p>
-I am currently pursuing MBA in Forensic Accounting & Fraud Investigation from 
-<a href="https://www.nfsu.com" target="_blank" style="color:#4da6ff;">NFSU</a>.  
-I specialize in OSINT, fraud detection, and financial investigation with hands-on experience from CID – Economic Offences Wing.
-My goal is to become a professional Fraud Investigator and OSINT Analyst.
-</p>
+<section class="content-section" id="projects">
+<h2 class="section-title">Projects</h2>
+<div class="project-grid">
+<article class="window">
+<div class="window-bar">
+<div class="dots"><span class="dot"></span><span class="dot"></span></div>
+<span>identity-theft-case-study.html</span>
 </div>
+<div class="window-image map"></div>
+<div class="window-body">
+<h3>Identity Theft in Business Environments</h3>
+<p>Research on how identity misuse affects businesses through document manipulation, impersonation, account misuse, and weak verification controls. The project maps common red flags and prevention touchpoints.</p>
+<span class="mini-btn">Research Project</span>
+</div>
+</article>
 
-<!-- SKILLS -->
-<div class="section">
-<h2>Core Skills</h2>
-<div class="grid">
-<div class="card">OSINT Investigation</div>
-<div class="card">Fraud Detection</div>
-<div class="card">Financial Analysis</div>
-<div class="card">Cybercrime Investigation</div>
-<div class="card">Social Media Intelligence</div>
-<div class="card">Report Writing</div>
+<article class="window">
+<div class="window-bar">
+<div class="dots"><span class="dot"></span><span class="dot"></span></div>
+<span>cyber-investigation-case-study.html</span>
 </div>
-</div>
-
-<!-- PROJECTS -->
-<div class="section">
-<h2>Projects</h2>
-<div class="grid">
-<div class="card">
-<h3>Identity Theft in Business</h3>
-<p>Research on identity theft trends in India.</p>
-</div>
-
-<div class="card">
+<div class="window-image lines"></div>
+<div class="window-body">
 <h3>Cyber Investigation Case Study</h3>
-<p>Analyzed fraud patterns using OSINT techniques.</p>
+<p>A practical OSINT exercise focused on tracing public signals, cross-checking digital indicators, and structuring fragmented online information into a usable case narrative.</p>
+<span class="mini-btn">OSINT Workflow</span>
 </div>
+</article>
+<article class="window">
+<div class="window-bar">
+<div class="dots"><span class="dot"></span><span class="dot"></span></div>
+<span>public-source-verification.html</span>
+</div>
+<div class="window-image grid"></div>
+<div class="window-body">
+<h3>Public Source Verification Workflow</h3>
+<p>A repeatable process for checking names, addresses, transport context, legal references, business records, and online mentions through Indian public and semi-public sources.</p>
+<span class="mini-btn">Verification System</span>
+</div>
+</article>
+
+<article class="window">
+<div class="window-bar">
+<div class="dots"><span class="dot"></span><span class="dot"></span></div>
+<span>media-registry-cross-check.html</span>
+</div>
+<div class="window-image map"></div>
+<div class="window-body">
+<h3>Media and Registry Cross-Check</h3>
+<p>Comparative work using official portals, court references, and news archives to reduce false positives and improve confidence before deeper fraud review or escalation.</p>
+<span class="mini-btn">Cross-Reference Study</span>
+</div>
+</article>
+</div>
+</section>
+
+<section class="content-section" id="writing">
+<h2 class="section-title">From the research desk</h2>
+<div class="writing-grid">
+<article class="window">
+<div class="window-bar">
+<div class="dots"><span class="dot"></span><span class="dot"></span></div>
+<span>fraud-red-flags-notes.pdf</span>
+</div>
+<div class="window-image grid"></div>
+<div class="window-body">
+<h3>Fraud Red Flags I Track</h3>
+<p>Focus areas include identity inconsistency, entity mismatch, timeline gaps, fabricated online presence, suspicious registrations, and patterns that suggest controlled narratives or paper trails.</p>
+<span class="mini-btn">Working Notes</span>
+</div>
+</article>
+
+<article class="window">
+<div class="window-bar">
+<div class="dots"><span class="dot"></span><span class="dot"></span></div>
+<span>india-osint-sources.pdf</span>
+</div>
+<div class="window-image lines"></div>
+<div class="window-body">
+<h3>India-Centric OSINT Sources</h3>
+<p>A grouped source map covering courts, transport, maps, telecom checks, government portals, and media archives useful during verification and investigative background work.</p>
+<span class="mini-btn">Source Map</span>
+</div>
+</article>
+</div>
+</section>
+
+<section class="content-section" id="about">
+<div class="stack-grid">
+<div class="panel">
+<h2 class="section-title">About</h2>
+<p>I’m a forensic accounting and fraud investigation student developing practical depth in OSINT collection, source validation, entity profiling, and reporting. My interests sit at the intersection of cyber-enabled fraud, economic offences, and evidence-backed intelligence work.</p>
+<p>Exposure to CID - Economic Offences Wing helped me connect academic theory with investigative thinking around verification, document review, and public-source intelligence support.</p>
+<div class="tag-list">
+<span class="tag">OSINT Investigation</span>
+<span class="tag">Fraud Detection</span>
+<span class="tag">Entity Verification</span>
+<span class="tag">Financial Review</span>
+<span class="tag">Cybercrime Research</span>
+<span class="tag">Report Writing</span>
+<span class="tag">Background Checks</span>
+<span class="tag">Source Validation</span>
+</div>
+</div>
+<div class="panel">
+<h2 class="section-title">What I Can Contribute</h2>
+<p>Support with due diligence, source-based profile building, red-flag review, and investigative documentation for early-stage fraud checks or intelligence-led assessments.</p>
+<p>Comfortable organizing raw information into structured findings so teams can move faster from scattered inputs to actionable leads.</p>
+</div>
+</div>
+</section>
+
+<section class="content-section" id="dashboard-section">
+<h2 class="section-title">Investigation Dashboard</h2>
+<div class="panel">
+<p>A private dashboard of India-focused tools and references for search, maps, transport context, legal sources, business checks, phone intelligence, and news monitoring.</p>
+<div class="hero-actions">
+<button class="btn" type="button" id="openDashboardBtn" onclick="openLogin()">Open Dashboard</button>
+<button class="btn alt" type="button" id="hideDashboardBtn" onclick="hideDashboard()" style="display:none;">Hide Dashboard</button>
+</div>
+
+<div id="dashboard" class="dashboard-shell">
+<div class="resource-groups">
+<div class="resource-box">
+<h3>Search & Discovery</h3>
+<a href="https://qmamu.com" target="_blank" rel="noopener noreferrer">Qmamu</a>
+<a href="https://www.13tabs.com/" target="_blank" rel="noopener noreferrer">13Tabs</a>
+</div>
+<div class="resource-box">
+<h3>Maps & Geolocation</h3>
+<a href="https://openstreetmap.in/" target="_blank" rel="noopener noreferrer">OpenStreetMap</a>
+<a href="https://surveyofindia.gov.in/" target="_blank" rel="noopener noreferrer">Survey of India</a>
+<a href="https://bharatmaps.gov.in/" target="_blank" rel="noopener noreferrer">Bharat Maps</a>
+<a href="https://villagemap.in/" target="_blank" rel="noopener noreferrer">Village Map</a>
+</div>
+<div class="resource-box">
+<h3>Legal & Records</h3>
+<a href="https://ecourts.gov.in/" target="_blank" rel="noopener noreferrer">eCourts</a>
+<a href="https://indiankanoon.org/" target="_blank" rel="noopener noreferrer">Indian Kanoon</a>
+<a href="https://judgments.ecourts.gov.in/" target="_blank" rel="noopener noreferrer">Court Judgments</a>
+<a href="https://ncrb.gov.in/" target="_blank" rel="noopener noreferrer">NCRB</a>
+</div>
+<div class="resource-box">
+<h3>Business & Identity</h3>
+<a href="https://services.gst.gov.in/" target="_blank" rel="noopener noreferrer">GST Search</a>
+<a href="https://myaadhaar.uidai.gov.in/" target="_blank" rel="noopener noreferrer">Aadhaar Services</a>
+<a href="https://pmkisan.gov.in/" target="_blank" rel="noopener noreferrer">PM Kisan</a>
+</div>
+<div class="resource-box">
+<h3>Transport & Movement</h3>
+<a href="https://www.dgca.gov.in/" target="_blank" rel="noopener noreferrer">DGCA</a>
+<a href="https://www.civilaviation.gov.in/" target="_blank" rel="noopener noreferrer">Civil Aviation</a>
+<a href="https://indiarailinfo.com/" target="_blank" rel="noopener noreferrer">India Rail Info</a>
+<a href="https://www.railyatri.in/" target="_blank" rel="noopener noreferrer">RailYatri</a>
+</div>
+<div class="resource-box">
+<h3>Phone & Media</h3>
+<a href="https://www.findandtrace.com/" target="_blank" rel="noopener noreferrer">Find & Trace</a>
+<a href="https://ceir.sancharsaathi.gov.in/" target="_blank" rel="noopener noreferrer">CEIR / Sanchar Saathi</a>
+<a href="https://www.thehindu.com/" target="_blank" rel="noopener noreferrer">The Hindu</a>
+<a href="https://indianexpress.com/" target="_blank" rel="noopener noreferrer">Indian Express</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="content-section" id="contact">
+<div class="info-grid">
+<div class="panel">
+<h2 class="section-title">Contact</h2>
+<p>Email: yadavayush9211@gmail.com</p>
+<p>Phone: +91 9125314228</p>
+<p>Location: India</p>
+</div>
+<div class="panel">
+<h2 class="section-title">Current Direction</h2>
+<p>Looking for opportunities in fraud investigation, OSINT analysis, risk intelligence, due diligence, and investigation support where structured open-source research adds operational value.</p>
+</div>
+</div>
+</section>
+
+<section class="content-section" id="games">
+<h2 class="section-title">OSINT Mini Games</h2>
+<div class="game-grid">
+<div class="game-card">
+<h3>Lead or Noise?</h3>
+<p>Choose the best next step like an investigator. Each scenario gives one strong move and several distractions.</p>
+<div class="clue-box" id="osintQuestion">A LinkedIn profile, an old company PDF, and a GST listing all show slightly different spellings of the same director name. What should you do first?</div>
+<div class="option-list">
+<button class="option-btn" type="button" onclick="answerOsint(0)">Rely on the LinkedIn profile because it looks most complete</button>
+<button class="option-btn" type="button" onclick="answerOsint(1)">Cross-check the name against official filings and registration records</button>
+<button class="option-btn" type="button" onclick="answerOsint(2)">Ignore the difference because minor spelling changes are normal</button>
+<button class="option-btn" type="button" onclick="answerOsint(3)">Search only social media comments for confirmation</button>
+</div>
+<div class="game-feedback" id="osintFeedback">Pick an option to test your OSINT decision-making.</div>
+<div class="score-strip">
+<span id="osintScore">Score: 0</span>
+<button class="mini-btn" type="button" onclick="nextOsintQuestion()">Next Scenario</button>
 </div>
 </div>
 
-<!-- EXPERIENCE -->
-<div class="section">
-<h2>Experience</h2>
-<div class="card">
-<h3>CID – Economic Offences Wing</h3>
-<p>Worked on fraud investigations, intelligence gathering, and financial verification.</p>
+<div class="game-card">
+<h3>Fraud Signal Match</h3>
+<p>Read the mini case and decide the risk level. This section works like a quick forensic review drill.</p>
+<div class="clue-box" id="fraudCase">A vendor was onboarded quickly, uses a residential address, and submitted invoices just below approval thresholds for three months.</div>
+<div class="option-list">
+<button class="option-btn" type="button" onclick="answerFraud('Low')">Low risk</button>
+<button class="option-btn" type="button" onclick="answerFraud('Medium')">Medium risk</button>
+<button class="option-btn" type="button" onclick="answerFraud('High')">High risk</button>
 </div>
+<div class="game-feedback" id="fraudFeedback">Assess the pattern and choose the risk level.</div>
+<div class="score-strip">
+<span id="fraudScore">Score: 0</span>
+<button class="mini-btn" type="button" onclick="nextFraudCase()">Next Case</button>
+</div>
+</div>
+</div>
+</section>
+
+<section class="content-section" id="forensic-daily">
+<h2 class="section-title">Daily Forensic Accounting</h2>
+<div class="forensic-grid">
+<div class="panel">
+<p>This section explains the kind of work a forensic accounting mindset applies every day: testing transaction patterns, checking documentation quality, comparing narratives with records, and spotting red flags before they become losses.</p>
+<div class="checklist">
+<div class="check-item">Review unusual payment timing, duplicate amounts, or threshold-based invoice splitting.</div>
+<div class="check-item">Compare vendor names, registration details, bank accounts, and addresses for mismatches.</div>
+<div class="check-item">Check whether approvals, supporting documents, and transaction narratives actually align.</div>
+<div class="check-item">Track repeat exceptions, manual overrides, and round-number entries.</div>
+<div class="check-item">Document findings clearly so an investigator, auditor, or manager can act quickly.</div>
+</div>
+<div class="metric-box">
+<strong>Daily Focus</strong>
+Pattern recognition, source validation, and evidence-backed reporting are the three habits that make forensic reviews stronger over time.
+</div>
+</div>
+<div class="panel">
+<h2 class="section-title">Common Red Flags</h2>
+<p>These are practical indicators worth checking every day in fraud review or financial verification work.</p>
+<div class="checklist">
+<div class="check-item">Invoices raised near approval limits</div>
+<div class="check-item">Shared contact details across unrelated vendors</div>
+<div class="check-item">Backdated documents or metadata inconsistencies</div>
+<div class="check-item">Rapid vendor creation followed by immediate payments</div>
+<div class="check-item">Lifestyle or asset signals inconsistent with declared income</div>
+<div class="check-item">Narratives that change across records, email, and declarations</div>
+</div>
+<div class="metric-box">
+<strong>Working Rule</strong>
+Never depend on one source. A forensic conclusion gets stronger when documents, public records, financial behavior, and timeline logic all support the same story.
+</div>
+</div>
+</div>
+</section>
+
+<section class="content-section" id="surprise-me">
+<h2 class="section-title">Surprise Me</h2>
+<div class="generator-layout">
+<div class="panel generator-form">
+<p>Enter a few details and generate a stylized intelligence-style profile card at the bottom. This can be used as a fun portfolio extra, a quick identity card, or a themed profile output.</p>
+<div class="form-grid">
+<div>
+<label for="profileName">Name</label>
+<input id="profileName" type="text" placeholder="Ayush Yadav">
+</div>
+<div>
+<label for="profileAlias">Alias / Role</label>
+<input id="profileAlias" type="text" placeholder="OSINT Researcher">
+</div>
+<div>
+<label for="profileOrigin">Location</label>
+<input id="profileOrigin" type="text" placeholder="India">
+</div>
+<div>
+<label for="profileSector">Focus Area</label>
+<input id="profileSector" type="text" placeholder="Fraud Investigation">
+</div>
+<div>
+<label for="profileLevel">Priority Level</label>
+<select id="profileLevel">
+<option>High</option>
+<option selected>Moderate</option>
+<option>Low</option>
+</select>
+</div>
+<div>
+<label for="profileStatus">Status</label>
+<input id="profileStatus" type="text" placeholder="Active Review">
+</div>
+<div class="full">
+<label for="profileSummary">Summary</label>
+<textarea id="profileSummary" placeholder="Short summary about the person, project, role, or idea you want this card to represent."></textarea>
+</div>
+</div>
+<div class="hero-actions">
+<button class="btn" type="button" onclick="generateDossier()">Generate Card</button>
+<button class="btn alt" type="button" onclick="fillDemoDossier()">Surprise Me</button>
+</div>
+<p class="generator-note">The output updates instantly below and keeps the same retro printed style as the rest of the site.</p>
 </div>
 
+<div class="dossier" id="dossierCard">
+<div class="dossier-top">
+<div>
+<div class="dossier-kicker">Profile Output</div>
+<div class="dossier-mark">AY</div>
+</div>
+<div class="dossier-issue" id="dossierIssue">Issue No. 26032026</div>
+</div>
+<div class="dossier-main">
+<div class="dossier-photo"></div>
+<div>
+<h3 class="dossier-headline" id="dossierName">Ayush Yadav</h3>
+<div class="dossier-meta">
+<div><span>Alias</span><strong id="dossierAlias">OSINT Researcher</strong></div>
+<div><span>Location</span><strong id="dossierOrigin">India</strong></div>
+<div><span>Focus Area</span><strong id="dossierSector">Fraud Investigation</strong></div>
+<div><span>Priority</span><strong id="dossierPriority">Moderate</strong></div>
+<div><span>Status</span><strong id="dossierStatus">Active Review</strong></div>
+<div><span>Type</span><strong id="dossierType">Analyst Profile</strong></div>
+</div>
+<p class="dossier-summary" id="dossierSummary">A structured profile card for portfolio visitors, useful for highlighting a person, capability, project persona, or case concept in a more visual format.</p>
+</div>
+</div>
+<div class="dossier-bottom">
+<div class="status-box">
+<h3>Current Readout</h3>
+<div class="status-line" id="dossierReadout">TRACKING SIGNALS</div>
+<p id="dossierReadoutText">Open-source patterns, intent cues, and role details are being organized into a clean, stylized summary.</p>
+</div>
+<div class="signal-box">
+<h3>Signal Meter</h3>
+<p id="signalLabel">3 / 5 active markers</p>
+<div class="signal-bars" id="signalBars">
+<span class="active"></span>
+<span class="active"></span>
+<span class="active"></span>
+<span></span>
+<span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<footer class="footer">&copy; 2026 Ayush Yadav | OSINT Portfolio</footer>
 </div>
 
-<!-- LOGIN -->
 <div id="loginPopup">
 <div class="login-box">
-<h2 style="color:#4da6ff;">Secure Access</h2>
-<input type="password" id="password">
-<button onclick="unlock()">Access</button>
-<p id="error" style="color:red;"></p>
+<h3>Secure Dashboard Access</h3>
+<p>Enter the dashboard password to open the private toolset.</p>
+<input type="password" id="password" placeholder="Enter password">
+<button class="btn" type="button" onclick="unlock()">Access Dashboard</button>
+<div id="error"></div>
 </div>
 </div>
-
-<!-- DASHBOARD -->
-<div class="container" id="dashboard" style="display:none;">
-
-<div class="section">
-<h2>OSINT Investigation Dashboard</h2>
-
-<h3>Search Engines</h3>
-<div class="grid">
-<a href="https://qmamu.com" target="_blank" class="card">Qmamu</a>
-<a href="https://www.13tabs.com/" target="_blank" class="card">13Tabs</a>
-</div>
-
-<h3>Maps</h3>
-<div class="grid">
-<a href="https://openstreetmap.in/" target="_blank" class="card">OpenStreetMap</a>
-<a href="https://surveyofindia.gov.in/" target="_blank" class="card">Survey of India</a>
-<a href="https://bharatmaps.gov.in/" target="_blank" class="card">Bharat Maps</a>
-<a href="https://villagemap.in/" target="_blank" class="card">Village Map</a>
-<a href="https://www.mapsofindia.com/" target="_blank" class="card">Maps of India</a>
-</div>
-
-<h3>Transport</h3>
-<div class="grid">
-<a href="https://www.dgca.gov.in/" target="_blank" class="card">DGCA</a>
-<a href="https://www.civilaviation.gov.in/" target="_blank" class="card">Civil Aviation</a>
-<a href="https://indiarailinfo.com/" target="_blank" class="card">India Rail Info</a>
-<a href="https://www.railyatri.in/" target="_blank" class="card">RailYatri</a>
-<a href="https://indianrailways.info/" target="_blank" class="card">Indian Railways</a>
-</div>
-
-<h3>Criminal Records</h3>
-<div class="grid">
-<a href="https://eprisons.nic.in/" target="_blank" class="card">Prison Portal</a>
-<a href="https://ncrb.gov.in/" target="_blank" class="card">NCRB</a>
-<a href="https://www.cyberyodha.org/" target="_blank" class="card">FIR Download</a>
-</div>
-
-<h3>People Search</h3>
-<div class="grid">
-<a href="https://services.gst.gov.in/" target="_blank" class="card">GST Search</a>
-<a href="https://myaadhaar.uidai.gov.in/" target="_blank" class="card">Aadhaar Verify</a>
-<a href="https://pmkisan.gov.in/" target="_blank" class="card">PM Kisan</a>
-</div>
-
-<h3>Phone Intelligence</h3>
-<div class="grid">
-<a href="https://www.findandtrace.com/" target="_blank" class="card">Find & Trace</a>
-<a href="https://www.indiacom.com/" target="_blank" class="card">Indiacom</a>
-<a href="https://ceir.sancharsaathi.gov.in/" target="_blank" class="card">Block Mobile</a>
-<a href="https://www.imei.info/" target="_blank" class="card">IMEI Check</a>
-</div>
-
-<h3>Courts</h3>
-<div class="grid">
-<a href="https://ecourts.gov.in/" target="_blank" class="card">eCourts</a>
-<a href="https://indiankanoon.org/" target="_blank" class="card">Indian Kanoon</a>
-<a href="https://judgments.ecourts.gov.in/" target="_blank" class="card">Court Judgments</a>
-</div>
-
-<h3>News</h3>
-<div class="grid">
-<a href="https://www.thehindu.com/" target="_blank" class="card">The Hindu</a>
-<a href="https://www.indiatoday.in/" target="_blank" class="card">India Today</a>
-<a href="https://indianexpress.com/" target="_blank" class="card">Indian Express</a>
-<a href="https://www.ndtv.com/" target="_blank" class="card">NDTV</a>
-<a href="https://www.news18.com/" target="_blank" class="card">News18</a>
-<a href="https://www.firstpost.com/" target="_blank" class="card">Firstpost</a>
-</div>
-
-</div>
-</div>
-
-<!-- BUTTON -->
-<div class="floating-btn" onclick="openLogin()">Dashboard</div>
-
-<footer>© 2026 Ayush Yadav | OSINT Portfolio</footer>
 
 <script>
+var osintQuestions=[
+{
+question:"A LinkedIn profile, an old company PDF, and a GST listing all show slightly different spellings of the same director name. What should you do first?",
+correct:1,
+explain:"Correct. Anchor the identity against official records before trusting social or marketing sources."
+},
+{
+question:"A phone number appears on a business site, a classifieds post, and a complaint forum. Which next step is strongest?",
+correct:2,
+explain:"Correct. Map the number across business records, archived pages, and time sequence before drawing conclusions."
+},
+{
+question:"A website claims an office in Delhi, but map imagery and business records disagree. What is the best next move?",
+correct:0,
+explain:"Correct. Validate the office independently through maps, registration records, and nearby reference points."
+}
+];
+
+var osintOptions=[
+[
+"Rely on the LinkedIn profile because it looks most complete",
+"Cross-check the name against official filings and registration records",
+"Ignore the difference because minor spelling changes are normal",
+"Search only social media comments for confirmation"
+],
+[
+"Treat the number as verified because it appears in multiple places",
+"Call the number immediately and accept whatever answer is given",
+"Cross-reference the number with business records, archived pages, and timeline clues",
+"Ignore the complaint forum because forums are always unreliable"
+],
+[
+"Validate the office through maps, registration records, and nearby reference points",
+"Trust the website because companies usually update their own pages",
+"Remove the lead because one conflict means the claim is fake",
+"Check only follower comments on Instagram"
+]
+];
+
+var fraudCases=[
+{
+text:"A vendor was onboarded quickly, uses a residential address, and submitted invoices just below approval thresholds for three months.",
+risk:"High",
+explain:"High risk. This combines weak onboarding, address concerns, and threshold-evasion behaviour."
+},
+{
+text:"An employee expense claim is fully documented, approved on time, and consistent with travel logs and calendar entries.",
+risk:"Low",
+explain:"Low risk. The records align and there are no obvious manipulation indicators."
+},
+{
+text:"A supplier changed bank details by email only, and the request came right before a large payment release.",
+risk:"High",
+explain:"High risk. Bank-detail changes near payment dates are a classic payment-diversion indicator."
+},
+{
+text:"Revenue rose sharply in the final week of the quarter, but supporting contracts and delivery proof are delayed.",
+risk:"Medium",
+explain:"Medium risk. The timing is suspicious and needs testing, but it is not automatically fraudulent without more evidence."
+}
+];
+
+var osintIndex=0;
+var fraudIndex=0;
+var osintScore=0;
+var fraudScore=0;
+
+function enterSite(){
+document.getElementById("introOverlay").style.display="none";
+document.getElementById("declineOverlay").classList.remove("visible");
+document.body.classList.remove("site-locked");
+window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function declineEntry(){
+document.getElementById("introOverlay").style.display="none";
+document.getElementById("declineOverlay").classList.add("visible");
+document.body.classList.add("site-locked");
+}
+
+function showIntroAgain(){
+document.getElementById("declineOverlay").classList.remove("visible");
+document.getElementById("introOverlay").style.display="flex";
+document.body.classList.add("site-locked");
+}
+
 function openLogin(){
+document.getElementById("password").value="";
+document.getElementById("error").innerText="";
 document.getElementById("loginPopup").style.display="flex";
 }
 
 function unlock(){
 var pass=document.getElementById("password").value;
+var dashboard=document.getElementById("dashboard");
+var openBtn=document.getElementById("openDashboardBtn");
+var hideBtn=document.getElementById("hideDashboardBtn");
 
 if(pass==="osint123"){
 document.getElementById("loginPopup").style.display="none";
-document.getElementById("dashboard").style.display="block";
-window.location.href="#dashboard";
+dashboard.classList.add("visible");
+openBtn.style.display="none";
+hideBtn.style.display="inline-block";
+dashboard.scrollIntoView({behavior:"smooth", block:"start"});
 }else{
-document.getElementById("error").innerText="Wrong Password";
+document.getElementById("error").innerText="Wrong password";
 }
 }
-</script>
 
+function hideDashboard(){
+document.getElementById("dashboard").classList.remove("visible");
+document.getElementById("openDashboardBtn").style.display="inline-block";
+document.getElementById("hideDashboardBtn").style.display="none";
+}
+
+function buildIssueNumber(){
+var now=new Date();
+return String(now.getDate()).padStart(2,"0") +
+String(now.getMonth()+1).padStart(2,"0") +
+String(now.getFullYear());
+}
+
+function setSignalLevel(level){
+var bars=document.querySelectorAll("#signalBars span");
+var activeCount=3;
+if(level==="High"){ activeCount=5; }
+if(level==="Moderate"){ activeCount=3; }
+if(level==="Low"){ activeCount=2; }
+
+bars.forEach(function(bar, index){
+if(index < activeCount){
+bar.classList.add("active");
+}else{
+bar.classList.remove("active");
+}
+});
+
+document.getElementById("signalLabel").innerText=activeCount + " / 5 active markers";
+}
+
+function generateDossier(){
+var name=document.getElementById("profileName").value.trim() || "Unnamed Profile";
+var alias=document.getElementById("profileAlias").value.trim() || "Field Operative";
+var origin=document.getElementById("profileOrigin").value.trim() || "Unknown Origin";
+var sector=document.getElementById("profileSector").value.trim() || "Open Source Review";
+var priority=document.getElementById("profileLevel").value;
+var status=document.getElementById("profileStatus").value.trim() || "Under Review";
+var summary=document.getElementById("profileSummary").value.trim() || "No summary was provided, so this profile is currently represented as a generic retro intelligence card.";
+
+document.getElementById("dossierIssue").innerText="Issue No. " + buildIssueNumber();
+document.getElementById("dossierName").innerText=name;
+document.getElementById("dossierAlias").innerText=alias;
+document.getElementById("dossierOrigin").innerText=origin;
+document.getElementById("dossierSector").innerText=sector;
+document.getElementById("dossierPriority").innerText=priority;
+document.getElementById("dossierStatus").innerText=status;
+document.getElementById("dossierType").innerText=alias.indexOf("Project") !== -1 ? "Project Profile" : "Analyst Profile";
+document.getElementById("dossierSummary").innerText=summary;
+document.getElementById("dossierReadout").innerText=priority === "High" ? "ELEVATED VISIBILITY" : priority === "Low" ? "LIGHT MONITORING" : "TRACKING SIGNALS";
+document.getElementById("dossierReadoutText").innerText=name + " is currently tagged as " + status + " under " + sector + ". The profile output highlights the visible narrative, declared role, and the main summary provided by the visitor.";
+document.getElementById("dossierCard").scrollIntoView({behavior:"smooth", block:"start"});
+setSignalLevel(priority);
+}
+
+function fillDemoDossier(){
+document.getElementById("profileName").value="Ayush Yadav";
+document.getElementById("profileAlias").value="Fraud Intelligence Analyst";
+document.getElementById("profileOrigin").value="India";
+document.getElementById("profileSector").value="OSINT & Forensic Review";
+document.getElementById("profileLevel").value="High";
+document.getElementById("profileStatus").value="Ready for Assignment";
+document.getElementById("profileSummary").value="Focused on fraud patterns, entity verification, public-record analysis, and converting scattered online traces into structured investigative leads.";
+generateDossier();
+}
+
+function renderOsintQuestion(){
+document.getElementById("osintQuestion").innerText=osintQuestions[osintIndex].question;
+var buttons=document.querySelectorAll("#games .game-card:first-child .option-btn");
+buttons.forEach(function(button, index){
+button.innerText=osintOptions[osintIndex][index];
+});
+document.getElementById("osintFeedback").innerText="Pick an option to test your OSINT decision-making.";
+}
+
+function answerOsint(choice){
+var current=osintQuestions[osintIndex];
+if(choice===current.correct){
+osintScore+=1;
+document.getElementById("osintFeedback").innerText=current.explain;
+}else{
+document.getElementById("osintFeedback").innerText="Not the best move. " + current.explain;
+}
+document.getElementById("osintScore").innerText="Score: " + osintScore;
+}
+
+function nextOsintQuestion(){
+osintIndex=(osintIndex+1)%osintQuestions.length;
+renderOsintQuestion();
+}
+
+function renderFraudCase(){
+document.getElementById("fraudCase").innerText=fraudCases[fraudIndex].text;
+document.getElementById("fraudFeedback").innerText="Assess the pattern and choose the risk level.";
+}
+
+function answerFraud(level){
+var current=fraudCases[fraudIndex];
+if(level===current.risk){
+fraudScore+=1;
+document.getElementById("fraudFeedback").innerText=current.explain;
+}else{
+document.getElementById("fraudFeedback").innerText="Not quite. " + current.explain;
+}
+document.getElementById("fraudScore").innerText="Score: " + fraudScore;
+}
+
+function nextFraudCase(){
+fraudIndex=(fraudIndex+1)%fraudCases.length;
+renderFraudCase();
+}
+
+window.onclick=function(event){
+var popup=document.getElementById("loginPopup");
+if(event.target===popup){
+popup.style.display="none";
+}
+};
+
+document.getElementById("password").addEventListener("keydown", function(event){
+if(event.key==="Enter"){
+unlock();
+}
+});
+
+renderOsintQuestion();
+renderFraudCase();
+</script>
 </body>
 </html>
